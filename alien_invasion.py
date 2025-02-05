@@ -1,6 +1,8 @@
 import sys    # Usamos la herramientas de sys para salir del juego cuando el jugador quiera.
 import pygame    # Contiene las funcionalidad que necesitamos para crear un juego.
 from settings import Settings    # Importamos settings desde Settings
+from ship import Ship
+
 
 # Definimos una clase AlienINvasion()
 class AlienInvasion:
@@ -20,6 +22,8 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
 
+        self.ship = Ship(self)
+
 
     # Controla el juego --> contiene un bucle while
     # El bucle while --> contiene un buble de eventos y codigo para administrar las actualizaciones de la pantalla.
@@ -36,6 +40,7 @@ class AlienInvasion:
 
             # Rediguja la pantalla en cada paso por el bucle.
             self.screen.fill(self.settings.bg_color)
+            self.ship.blitme()
 
 
             # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
