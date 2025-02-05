@@ -9,6 +9,8 @@ class AlienInvasion:
     def __init__(self):
         """Inicializa el juego y crea recursos."""
         pygame.init()
+        # Definimos un reloj
+        self.clock = pygame.time.Clock()
 
     # Creamos una ventana con display.set_mode (1200, 800), es una tupla que define las dimensiones de la ventana del juego 1200 pixeles de ancho por 800 de alto.
     # Asignamos la ventana al atributo self.screen --> para que este disponible en todos los mètodo de clase
@@ -32,6 +34,11 @@ class AlienInvasion:
             # Hace visible la ùltima pantalla dibujada.
             # Esta llamada actualiza constantemente la pantalla
             pygame.display.flip()
+            self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
+
+
+
+
 
 # Creamos una instancia del juego
 if __name__ == '__main__':
