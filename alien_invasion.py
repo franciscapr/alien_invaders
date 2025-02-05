@@ -12,11 +12,16 @@ class AlienInvasion:
         # Definimos un reloj
         self.clock = pygame.time.Clock()
 
-    # Creamos una ventana con display.set_mode (1200, 800), es una tupla que define las dimensiones de la ventana del juego 1200 pixeles de ancho por 800 de alto.
-    # Asignamos la ventana al atributo self.screen --> para que este disponible en todos los mètodo de clase
-    # Este objeto se denomina superficie
+        # Creamos una ventana con display.set_mode (1200, 800), es una tupla que define las dimensiones de la ventana del juego 1200 pixeles de ancho por 800 de alto.
+        # Asignamos la ventana al atributo self.screen --> para que este disponible en todos los mètodo de clase
+        # Este objeto se denomina superficie
         self.screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption("Alien Invasion")
+
+        # Configuraciòn del color
+        self.bg_color = (230, 230, 230)
+
+
 
     # Controla el juego --> contiene un bucle while
     # El bucle while --> contiene un buble de eventos y codigo para administrar las actualizaciones de la pantalla.
@@ -31,8 +36,10 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-            # Hace visible la ùltima pantalla dibujada.
-            # Esta llamada actualiza constantemente la pantalla
+            # Rediguja la pantalla en cada paso por el bucle.
+            self.screen.fill(self.bg_color)
+
+            # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
             pygame.display.flip()
             self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
 
