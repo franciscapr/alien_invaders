@@ -21,11 +21,14 @@ class Ship():
 
         # Bandera de movimiento; empieza con una bandera que no se mueve.
         self.moving_right = False
+        self.moving_left = False
 
     def update(self):
         """Actualiza la posiciòn de la nave en funciòn de la bandera de movimiento."""
         if self.moving_right:
             self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
 
 
     def blitme(self):
