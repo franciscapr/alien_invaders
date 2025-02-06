@@ -8,3 +8,6 @@ class Settings:
         self.screen_height = 800
         # self.bg_color = (230, 230, 230)
         self.bg_color = (20, 145, 231)
+
+        # Configuraciòn de la nave.
+        self.ship_speed = 1.5    # Cuando la nave se mueve, su posiciòn se ajusta 1.5 pixeles
