@@ -31,21 +31,26 @@ class AlienInvasion:
     def run_game(self):
         """Inicia el buble principal para el juego."""
         while True:
-            # Busca eventos de teclas y ratòn
-            # Con pygame.event.get() --> Obtenemos los eventos detectados por pygame
-            for event in pygame.event.get():
-                # Los if los utilizamos para detectar eventos especificos.
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            self._check_events()
+            self._update_screen()
+            self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
 
+
+    def _check_events(self):
+        # Busca eventos de teclas y ratòn
+        # Con pygame.event.get() --> Obtenemos los eventos detectados por pygame
+        for event in pygame.event.get():
+            # Los if los utilizamos para detectar eventos especificos.
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
             # Rediguja la pantalla en cada paso por el bucle.
             self.screen.fill(self.settings.bg_color)
             self.ship.blitme()    # Dibujamos la nave en la pantalla, para que la nave aparezca encima del fondo
 
-
             # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
             pygame.display.flip()
-            self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
 
 
 

@@ -12,7 +12,8 @@ class Ship():
         self.screen_rect = ai_game.screen.get_rect()
 
         # Carga la imagen de la nave y obtiene su rect.
-        self.image = pygame.image.load('images/ship.bmp')
+        # self.image = pygame.image.load('images/ship.bmp')
+        self.image = pygame.image.load('images/PSYCA1.png')
         self.rect = self.image.get_rect()
 
         # Coloca inicialmente cada nave nueva en el centro de la parte inferior de la pantalla.
