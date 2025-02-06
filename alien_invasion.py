@@ -32,6 +32,7 @@ class AlienInvasion:
         """Inicia el buble principal para el juego."""
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
             self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
 
@@ -46,8 +47,11 @@ class AlienInvasion:
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    # Mueve la nava a la derecha.
-                    self.ship.rect.x += 1    # Aumenta el valor de rect.x en 1
+                    self.ship.moving_right = True
+            elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                         self.ship.moving_right = False
+
 
 
     def _update_screen(self):
