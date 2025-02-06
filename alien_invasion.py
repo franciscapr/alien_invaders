@@ -44,6 +44,12 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
 
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    # Mueve la nava a la derecha.
+                    self.ship.rect.x += 1    # Aumenta el valor de rect.x en 1
+
+
     def _update_screen(self):
             # Rediguja la pantalla en cada paso por el bucle.
             self.screen.fill(self.settings.bg_color)
