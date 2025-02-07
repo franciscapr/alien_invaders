@@ -3,7 +3,7 @@ import pygame    # Contiene las funcionalidad que necesitamos para crear un jueg
 from settings import Settings    # Importamos settings desde Settings
 from ship import Ship    # Importamos ship
 from bullet import Bullet
-
+from alien import Alien
 
 # Definimos una clase AlienINvasion()
 class AlienInvasion:
@@ -16,7 +16,15 @@ class AlienInvasion:
         # Definimos un reloj
         self.clock = pygame.time.Clock()
         self.settings = Settings()
+
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_caption("Alien Invasion")
+
+        self.ship = Ship(self)    # Hacemos una instancia despues de crear la pantalla, requiere un argumento --> self (instancia de AlienInvasion)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
         # ***** FULL SCREEN *****
         # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -27,10 +35,7 @@ class AlienInvasion:
         # Creamos una ventana con display.set_mode (1200, 800), es una tupla que define las dimensiones de la ventana del juego 1200 pixeles de ancho por 800 de alto.
         # Asignamos la ventana al atributo self.screen --> para que este disponible en todos los mètodo de clase
         # Este objeto se denomina superficie
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-        pygame.display.set_caption("Alien Invasion")
 
-        self.ship = Ship(self)    # Hacemos una instancia despues de crear la pantalla, requiere un argumento --> self (instancia de AlienInvasion)
 
 
     # Controla el juego --> contiene un bucle while
@@ -42,13 +47,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
-
-            # Se deshace de las balas que han desaparecido.
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-               # print(len(self.bullets))
-            
+            self._update_bullets()            
             self._update_screen()
 
             self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
@@ -91,6 +90,25 @@ class AlienInvasion:
             new_ballet = Bullet(self)
             self.bullets.add(new_ballet)
 
+
+    def _update_bullets(self):
+        """Actualiza la posiciòn de las balas y se deshace de las viejas."""
+        # Actualiza las posiciones de las balas.
+        self.bullets.update()
+
+        # Se deshace de las balas que han desaparecido.
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
+
+    def _create_fleet(self):
+        """Crea la flota de aliens."""
+        # Hace un alien
+        alien = Alien(self)    # Creamos una instancia de alien
+        self.aliens.add(alien)    # Se lo añadimos al grupo que contendra al flota
+
+
     def _update_screen(self):
         """Actualiza las imàgenes en pantallas y pasa a nueva pantalla."""
         self.screen.fill(self.settings.bg_color)
@@ -98,6 +116,7 @@ class AlienInvasion:
             bullet.draw_bullet()
 
         self.ship.blitme()    # Dibujamos la nave en la pantalla, para que la nave aparezca encima del fondo
+        self.aliens.draw(self.screen)
 
         # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
         pygame.display.flip()
