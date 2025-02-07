@@ -103,10 +103,21 @@ class AlienInvasion:
 
 
     def _create_fleet(self):
-        """Crea la flota de aliens."""
-        # Hace un alien
-        alien = Alien(self)    # Creamos una instancia de alien
-        self.aliens.add(alien)    # Se lo añadimos al grupo que contendra al flota
+        """Crea la flota de alienigenas."""
+        # Crea un alienìgena y va añadiendo aloenìgenas hasta que no haya espacio.
+        # La distancia entre alienìgenas es equivalente al ancho de un extraterrestre.
+        alien = Alien(self)
+        alien_width = alien.rect.width    # Obtenemos el ancho del primer alienigena
+
+        current_x = alien_width    # Hace referencia a la posiciòn horizontal del siguiente alienigena
+        while current_x < (self.settings.screen_width - 2 * alien_width):    # Comenzamos el bucle agregando mas alienigenas mientras haya suficiente espacio para colocar uno. Para determinar si hay suficiente espacio para colocar otro alienigena, comparamos current_x con el valor maximo
+            new_alien = Alien(self)
+            new_alien.x = current_x
+            new_alien.rect.x = current_x
+            self.aliens.add(new_alien)
+            current_x += 2 * alien_width
+
+
 
 
     def _update_screen(self):
