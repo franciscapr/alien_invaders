@@ -107,19 +107,25 @@ class AlienInvasion:
         # Crea un alienìgena y va añadiendo aloenìgenas hasta que no haya espacio.
         # La distancia entre alienìgenas es equivalente al ancho de un extraterrestre.
         alien = Alien(self)
-        alien_width = alien.rect.width    # Obtenemos el ancho del primer alienigena
+        alien_width, alien_height = alien.rect.size    # size -> contiene el ancho y alto de una elementos en este caso del alienigena
 
-        current_x = alien_width    # Hace referencia a la posiciòn horizontal del siguiente alienigena
-        while current_x < (self.settings.screen_width - 2 * alien_width):    # Comenzamos el bucle agregando mas alienigenas mientras haya suficiente espacio para colocar uno. Para determinar si hay suficiente espacio para colocar otro alienigena, comparamos current_x con el valor maximo
-            self._create_alien(current_x)
-            current_x += 2 * alien_width
+        current_x, current_y = alien_width, alien_height
+        while current_y < (self.settings.screen_height - 3 * alien_height):
+            while current_x < (self.settings.screen_width - 2 * alien_width):
+                self._create_alien(current_x, current_y)
+                current_x += 2 * alien_width
+
+            # Fila terminada; resetea valor de x e incrementa valor de y.
+            current_x = alien_width
+            current_y += 2 * alien_height
 
 
-    def _create_alien(self, x_position):
+    def _create_alien(self, x_position, y_position):
         """Crea un alienigena y lo coloa en la fila."""
         new_alien = Alien(self)
         new_alien.x = x_position
         new_alien.rect.x = x_position
+        new_alien.rect.y = y_position
         self.aliens.add(new_alien)
 
 
