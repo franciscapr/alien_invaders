@@ -111,11 +111,16 @@ class AlienInvasion:
 
         current_x = alien_width    # Hace referencia a la posiciòn horizontal del siguiente alienigena
         while current_x < (self.settings.screen_width - 2 * alien_width):    # Comenzamos el bucle agregando mas alienigenas mientras haya suficiente espacio para colocar uno. Para determinar si hay suficiente espacio para colocar otro alienigena, comparamos current_x con el valor maximo
-            new_alien = Alien(self)
-            new_alien.x = current_x
-            new_alien.rect.x = current_x
-            self.aliens.add(new_alien)
+            self._create_alien(current_x)
             current_x += 2 * alien_width
+
+
+    def _create_alien(self, x_position):
+        """Crea un alienigena y lo coloa en la fila."""
+        new_alien = Alien(self)
+        new_alien.x = x_position
+        new_alien.rect.x = x_position
+        self.aliens.add(new_alien)
 
 
 
