@@ -2,6 +2,7 @@ import sys    # Usamos la herramientas de sys para salir del juego cuando el jug
 import pygame    # Contiene las funcionalidad que necesitamos para crear un juego.
 from settings import Settings    # Importamos settings desde Settings
 from ship import Ship    # Importamos ship
+from bullet import Bullet
 
 
 # Definimos una clase AlienINvasion()
@@ -15,7 +16,9 @@ class AlienInvasion:
         # Definimos un reloj
         self.clock = pygame.time.Clock()
         self.settings = Settings()
+        self.bullets = pygame.sprite.Group()
 
+        # ***** FULL SCREEN *****
         # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         # self.settings.screen_width = self.screen.get_rect().width
         # self.settings.screen_height = self.screen.get_rect().height
@@ -38,6 +41,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
             self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
 
@@ -63,6 +67,8 @@ class AlienInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         """Responde a liberaciones de teclas."""
@@ -71,15 +77,21 @@ class AlienInvasion:
         if event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
-
+    def _fire_bullet(self):
+        """Crea una nueva bala y la añade al grupo de balas."""
+        new_ballet = Bullet(self)
+        self.bullets.add(new_ballet)
 
     def _update_screen(self):
-            # Rediguja la pantalla en cada paso por el bucle.
-            self.screen.fill(self.settings.bg_color)
-            self.ship.blitme()    # Dibujamos la nave en la pantalla, para que la nave aparezca encima del fondo
+        """Actualiza las imàgenes en pantallas y pasa a nueva pantalla."""
+        self.screen.fill(self.settings.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+            
+        self.ship.blitme()    # Dibujamos la nave en la pantalla, para que la nave aparezca encima del fondo
 
-            # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
-            pygame.display.flip()
+        # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
+        pygame.display.flip()
 
 
 
