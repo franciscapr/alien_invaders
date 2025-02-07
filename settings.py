@@ -17,3 +17,4 @@ class Settings:
         self.bullet_width = 3    # Anchura de 3 pixeles
         self.bullet_height = 15    # Altura de 15 pixeles
         self.bullet_color = (60, 60, 60)    # Balas de color gris
+        self.bullets_allowed = 3    # Nùmero de balas permitidas -> 3 balas cada vez

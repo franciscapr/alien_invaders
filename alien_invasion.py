@@ -42,7 +42,15 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
+
+            # Se deshace de las balas que han desaparecido.
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+               # print(len(self.bullets))
+            
             self._update_screen()
+
             self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
 
 
@@ -79,15 +87,16 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Crea una nueva bala y la añade al grupo de balas."""
-        new_ballet = Bullet(self)
-        self.bullets.add(new_ballet)
+        if len(self.bullets) < self.settings.bullets_allowed:    # Si len(self.bullets) es menor a 3 -> creamos una bala nueva
+            new_ballet = Bullet(self)
+            self.bullets.add(new_ballet)
 
     def _update_screen(self):
         """Actualiza las imàgenes en pantallas y pasa a nueva pantalla."""
         self.screen.fill(self.settings.bg_color)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-            
+
         self.ship.blitme()    # Dibujamos la nave en la pantalla, para que la nave aparezca encima del fondo
 
         # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
