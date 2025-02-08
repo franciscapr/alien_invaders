@@ -22,7 +22,17 @@ class Alien(Sprite):
         self.x = float(self.rect.x)
 
 
+
+    def check_edges(self):
+        """Devuelve True si el alienigena està en el borde de la pantalla."""
+        screen_rect = self.screen.get_rect()
+        # Si el atributo rect es mayor o igual que el rect de la pantalla esta en el borde derecho
+        # Si su valor left es menor o igual que 0, esta a la izquierda
+        return (self.rect.right >= screen_rect.right) or (self.rect.left <= 0)
+
+
     def update(self):
-        """Mueve el alien a la derecha."""
-        self.x += self.settings.alien_speed
+        """Mueva el alien hacia la derecha o la izquierda."""
+        self.x += self.settings.alien_speed * self.settings.fleet_direction
         self.rect.x = self.x
+    
