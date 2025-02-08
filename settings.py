@@ -18,3 +18,9 @@ class Settings:
         self.bullet_height = 15    # Altura de 15 pixeles
         self.bullet_color = (60, 60, 60)    # Balas de color gris
         self.bullets_allowed = 3    # Nùmero de balas permitidas -> 3 balas cada vez
+
+        # Configuraciòn del alien
+        self.alien_speed = 1.0    # Velocidad del alien
+        self.fleet_drop_speed = 10    # Controla la velocidad a la que descience la flota, cada vez que un alien llega al borde
+        # fleet_direction de 1 reprsenta derecha; -1 representa izquierda.
+        self.fleet_direction = 1

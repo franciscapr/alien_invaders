@@ -47,7 +47,8 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
-            self._update_bullets()            
+            self._update_bullets()     
+            self._update_aliens()       
             self._update_screen()
 
             self.clock.tick(60)    # El bucle se ejecuta 60 veces por segundo
@@ -100,6 +101,10 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+
+    def _update_aliens(self):
+        """Actualiza las poasiciones de todos los aliens de la flota."""
+        self.aliens.update()
 
 
     def _create_fleet(self):
