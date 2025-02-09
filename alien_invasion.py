@@ -102,6 +102,13 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+        # BUsca balas que hayan dado a aliens.
+        # Si hay, se desahace de la bala y del alien.
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
+
+
+
     def _update_aliens(self):
         """Comprueba si la flota està en un borde, despuès actualiza las posiciones."""
         self._check_fleet_edges()
