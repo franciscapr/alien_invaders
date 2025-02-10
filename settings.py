@@ -10,14 +10,14 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         # Configuraciòn de la nave.
-        self.ship_speed = 1.5    # Cuando la nave se mueve, su posiciòn se ajusta 1.5 pixeles
+        self.ship_speed = 3.0    # Cuando la nave se mueve, su posiciòn se ajusta 1.5 pixeles
 
         # Configuraciòn de las balas.
-        self.bullet_speed = 2.0     # Se moveran a 2.0 pixeles de velocidad
+        self.bullet_speed = 2.5     # Se moveran a 2.0 pixeles de velocidad
         self.bullet_width = 3    # Anchura de 3 pixeles
         self.bullet_height = 15    # Altura de 15 pixeles
         self.bullet_color = (60, 60, 60)    # Balas de color gris
-        self.bullets_allowed = 3    # Nùmero de balas permitidas -> 3 balas cada vez
+        self.bullets_allowed = 10    # Nùmero de balas permitidas -> 3 balas cada vez
 
         # Configuraciòn del alien
         self.alien_speed = 1.0    # Velocidad del alien
