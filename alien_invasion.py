@@ -4,6 +4,8 @@ from settings import Settings    # Importamos settings desde Settings
 from ship import Ship    # Importamos ship
 from bullet import Bullet
 from alien import Alien
+from time import sleep    # Nos permite poner el juego en pausa cuando la nave es alcanzada
+from game_stats import GameStats
 
 # Definimos una clase AlienINvasion()
 class AlienInvasion:
@@ -16,9 +18,12 @@ class AlienInvasion:
         # Definimos un reloj
         self.clock = pygame.time.Clock()
         self.settings = Settings()
-
+        
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
+
+        # Crea una instancia para guardar las estadìsticas del juego.
+        self.stats = GameStats(self)
 
         self.ship = Ship(self)    # Hacemos una instancia despues de crear la pantalla, requiere un argumento --> self (instancia de AlienInvasion)
         self.bullets = pygame.sprite.Group()
@@ -97,6 +102,11 @@ class AlienInvasion:
         # Actualiza las posiciones de las balas.
         self.bullets.update()
 
+        # Busca colisiones alien-nav.
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+
+
         # Se deshace de las balas que han desaparecido.
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
@@ -114,9 +124,6 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
         
-
-
-
 
 
     def _update_aliens(self):
@@ -151,6 +158,23 @@ class AlienInvasion:
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
+
+
+    def _ship_hit(self):
+        """Responde al impacto de una alien en la nave."""
+        # Disminuye ships_left.
+        self.stats.ship_left -= 1
+
+        # Se deshace de los aliens y balas restantes.
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # Crea una flota nueva y centra la nave.
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # Pausa.
+        sleep(0.5)
 
 
     def _update_screen(self):

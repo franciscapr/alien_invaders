@@ -11,6 +11,7 @@ class Settings:
 
         # Configuraciòn de la nave.
         self.ship_speed = 3.0    # Cuando la nave se mueve, su posiciòn se ajusta 1.5 pixeles
+        self.ship_limit = 3    # Nùmero de naves con las que se empieza a jugar
 
         # Configuraciòn de las balas.
         self.bullet_speed = 2.5     # Se moveran a 2.0 pixeles de velocidad
@@ -20,7 +21,7 @@ class Settings:
         self.bullets_allowed = 10    # Nùmero de balas permitidas -> 3 balas cada vez
 
         # Configuraciòn del alien
-        self.alien_speed = 1.0    # Velocidad del alien
+        self.alien_speed = 5.0    # Velocidad del alien
         self.fleet_drop_speed = 10    # Controla la velocidad a la que descience la flota, cada vez que un alien llega al borde
         # fleet_direction de 1 reprsenta derecha; -1 representa izquierda.
         self.fleet_direction = 1

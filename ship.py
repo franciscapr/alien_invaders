@@ -37,6 +37,12 @@ class Ship():
         # Actualiza el objeto rect de self.x
         self.rect.x = self.x
 
+    def center_ship(self):
+        """Centra la nave en la pantalla."""
+        self.rect_midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+
+
     def blitme(self):
         """Dibuja la nave en su ubicaciòn actual."""
         self.screen.blit(self.image, self.rect)    # rect ---> nos permite tratar los elementos como rectangulos
