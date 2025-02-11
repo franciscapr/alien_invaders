@@ -36,8 +36,10 @@ class Settings:
         self.bullet_speed = 2.5
         self.alien_speed = 1.0
 
-        # flett_direction de 1 representa la derecha; -1 representa la izquierda.
+        # fleet_direction de 1 representa la derecha; -1 representa la izquierda.
         self.fleet_direction = 1
+        # Configuraciòn de puntuaciòn
+        self.alien_points = 50
 
     def increase_speed(self):
         """Incrementa las configuraciones de valocidad"""

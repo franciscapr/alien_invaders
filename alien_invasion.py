@@ -159,6 +159,10 @@ class AlienInvasion:
         # Retira todas las balas y aliens que han chocado.
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, False, True)
 
+        if collisions:
+            self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
+
         if not self.aliens:
             # Destruye las balas existentes y crea un flota nueva.
             self.bullets.empty()
