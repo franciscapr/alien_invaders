@@ -6,6 +6,7 @@ from bullet import Bullet
 from alien import Alien
 from time import sleep    # Nos permite poner el juego en pausa cuando la nave es alcanzada
 from game_stats import GameStats
+from button import Button
 
 # Definimos una clase AlienINvasion()
 class AlienInvasion:
@@ -33,6 +34,9 @@ class AlienInvasion:
         
         # Inicia alien invasion en un estado inactivo.
         self.game_active = False
+
+        # Crea el bitòn Play
+        self.play_button = Button(self, "Play")
 
 
         # ***** FULL SCREEN *****
@@ -210,9 +214,13 @@ class AlienInvasion:
         self.ship.blitme()    # Dibujamos la nave en la pantalla, para que la nave aparezca encima del fondo
         self.aliens.draw(self.screen)
 
+
+        # Dibuja el botòn para jugar si el juego està incativo.
+        if not self.game_active:
+            self.play_button.draw_button()
+
         # Hace visible la ùltima pantalla dibujada --> Esta llamada actualiza constantemente la pantalla.
         pygame.display.flip()
-
 
     def _check_fleet_edges(self):
         """Responde adecuadamente si algùn alien ha legado a un borde."""
