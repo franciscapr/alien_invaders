@@ -21,7 +21,7 @@ class Settings:
         self.bullets_allowed = 10    # Nùmero de balas permitidas -> 3 balas cada vez
 
         # Configuraciòn del alien
-        self.alien_speed = 5.0    # Velocidad del alien
+        self.alien_speed = 2.5    # Velocidad del alien
         self.fleet_drop_speed = 10    # Controla la velocidad a la que descience la flota, cada vez que un alien llega al borde
         # fleet_direction de 1 reprsenta derecha; -1 representa izquierda.
         self.fleet_direction = 1

@@ -31,7 +31,8 @@ class AlienInvasion:
 
         self._create_fleet()
         
-        self.game_active = True
+        # Inicia alien invasion en un estado inactivo.
+        self.game_active = False
 
 
         # ***** FULL SCREEN *****
