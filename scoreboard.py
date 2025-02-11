@@ -1,14 +1,19 @@
 import pygame.font
+from pygame.sprite import Group
+from ship import Ship
+
 
 class Scoreboard:
     """Una clase para dar informaciòn de la puntuaciòn."""
 
     def __init__(self, ai_game):
         """Inicializa los atributos de la puntuaciòn"""
+        self.ai_game = ai_game
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.stats = ai_game.stats
+        self.prep_ships()
 
 
         # Configuraciòn de fuente para la informaciòn de la puntuacòn.
@@ -29,6 +34,7 @@ class Scoreboard:
         self.level_rect = self.level_image.get_rect()
         self.level_rect.right = self.score_rect.right
         self.level_rect.top = self.score_rect.bottom + 10
+
 
     def prep_score(self):
         """Convierte la puntuaciòn en una imagen renderizada."""
@@ -53,13 +59,26 @@ class Scoreboard:
         self.high_score_rect.top = self.score_rect.top
 
 
+
+    def prep_ships(self):
+        """Muestra cuàntas naves quedan."""
+        self.ships = Group()    # Creamos una grupo vacio
+        for ship_number in range(self.stats.ship_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)    # Añadimos las nave una en una al grupo de ship
+
+
+    def check_high_score(self):
+        """Comprueba si hay una nueva puntuaciòn màs alta."""
+        if self.stats.score > self.stats.high_score:
+            self.stats.high_score = self.stats.score
+            self.prep_hight_score()
+
     def show_score(self):
         """Dibuja la puntuaciòn en la pantalla."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
-
-    def check_high_score(self):
-        """Comprueba si hay una nueva puntuaciòn màs alta."""
-        if self.stats.score > self.stats.high_score:
-            self.prep_hight_score()
+        self.ships.draw(self.screen)
