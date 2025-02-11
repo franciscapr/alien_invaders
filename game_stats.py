@@ -9,6 +9,9 @@ class GameStats:
         self.settings = ai_game.settings
         self.reset_stats()
 
+        # La puntuaciòn màs alta no deberìa restablecerse nunca.
+        self.high_score = 0
+
 
     def reset_stats(self):
         """Inicializa las estadìsticas que pueden cambiar durante el juego."""
