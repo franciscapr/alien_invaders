@@ -106,6 +106,8 @@ class AlienInvasion:
 
             self.game_active = True
 
+            pygame.mouse.set_visible(False)
+
     def _check_keydown_events(self, event):
         """Responde a pulsaciones de teclas."""
         if event.key == pygame.K_RIGHT:
@@ -157,6 +159,7 @@ class AlienInvasion:
             # Destruye las balas existentes y crea un flota nueva.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
         
 
 
@@ -217,6 +220,7 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.game_active = False
+            pygame.mouse.set_visible(True)
 
 
     def _check_aliens_bottom(self):
