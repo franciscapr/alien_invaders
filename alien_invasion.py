@@ -7,6 +7,7 @@ from alien import Alien
 from time import sleep    # Nos permite poner el juego en pausa cuando la nave es alcanzada
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 # Definimos una clase AlienINvasion()
 class AlienInvasion:
@@ -25,6 +26,7 @@ class AlienInvasion:
 
         # Crea una instancia para guardar las estadìsticas del juego.
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         self.ship = Ship(self)    # Hacemos una instancia despues de crear la pantalla, requiere un argumento --> self (instancia de AlienInvasion)
         self.bullets = pygame.sprite.Group()
@@ -91,6 +93,8 @@ class AlienInvasion:
         """Inicia un juego nuevo cuando el jugador hace click en Play."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.game_active:
+            # Restablece las configuraciones del juego.
+            self.settings.initialize_dynamic_settings()
 
             # Restablecer las estadisticas del juego.
             self.stats.reset_stats()
@@ -240,6 +244,9 @@ class AlienInvasion:
 
         self.ship.blitme()    # Dibujamos la nave en la pantalla, para que la nave aparezca encima del fondo
         self.aliens.draw(self.screen)
+
+        # Dibuja la informaciòn de la puntuaciòn.
+        self.sb.show_score()
 
 
         # Dibuja el botòn para jugar si el juego està incativo.
